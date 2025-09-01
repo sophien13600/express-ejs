@@ -3,18 +3,33 @@ import 'dotenv/config'
 import personne from './routes/personne.route.js'
 import adresse from './routes/adresse.route.js'
 
+
 const app = express()
 // Mapping entre routes et le routeur
-app.use("/personne", personne)
+app.use("/personne",personne)
 app.use("/adresse", adresse)
 
+// configuration du moteur de template
+app.set('view engine', 'ejs')
+app.set('views', import.meta.dirname + '/templates')
+app.set('views', import.meta.dirname + '/templates')
+//app.set('view options', { delimiter: '?' })
 
 app.get(['/', '/home', '/accueil'], (req, res) => {
-    res.end("Hello world!")
+    // res.end("Hello world!")
+    res.render('index',
+        {
+            nom: 'Wick',
+            nomImportant: '<strong>Mitroglou</strong>',
+            isConnected: false,
+            nombres : [2, 3, 8, 5, 1]
+        })
+        
 })
-
-
-
+app.get(['/personne'], (req, res) => {
+ 
+    res.render('personne')
+})
 
 app.all("/*splat", (req, res) => {
     res
