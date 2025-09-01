@@ -1,6 +1,5 @@
 const showPersonnes = (req, res, next) => {
-    res.end("<p>Listes des personnes</p>")
-   // .render('index')
+    res.render('personne', { name: req.query.name })
 }
 
 export default { showPersonnes }

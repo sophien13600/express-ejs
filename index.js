@@ -26,10 +26,7 @@ app.get(['/', '/home', '/accueil'], (req, res) => {
         })
         
 })
-app.get(['/personne'], (req, res) => {
- 
-    res.render('personne')
-})
+
 
 app.all("/*splat", (req, res) => {
     res
