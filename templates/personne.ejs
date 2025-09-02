@@ -1,48 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personne</title>
-</head>
-<body>
-    <h1>Formulaire</h1>
-    <form action="/personne" method="post">
-        <div>
-            <label for="name">Nom</label>
-            <input type="text" id ="name" name="name">
-        </div>
-        <div>
-            <label for="surname">Prenom</label>
-            <input type="text" id ="surname" name="surname">
-        </div>
-        <div>
-            <label for="age">Age</label>
-            <input type="number" id ="age" name="age">
-        </div>
-        <div>
-            <button>Ajouter</button>
-        </div>
-        <div>
-            <button>
-                Supprimer
-            </button>
-        </div>
+<html lang="fr">
 
-    </form>
-    <h2>Liste des personnes</h2>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personne</title>
+</head>
+
+<body>
+  <h1>Gestion de personnes</h1>
+  <h2>Ajouter une nouvelle personne</h2>
+  <ul>
+    <% if (erreurs) { %>
+    <%  erreurs.forEach(err => { %>
+    <li>
+      <%= err %>
+    </li>
+
+    <% }) %>
+    <% } %>
+  </ul>
+  <form action="/personne" method="post">
     <div>
-    <ul>
-        <% personnes.forEach(p =>{%>
-         <% let link=`/personne/${p.id}` %>
-            <li>
-        <form action="/personne" action="delete"></form>
-            <%=`${p.surname} ${p.name}` %> 
-         <a href="<%= link %>">supprimer</a>
-        </li>
-        </form>
-        <%})%>
-    </ul> 
+      <label for="nom">Nom</label>
+      <input type="text" id="nom" name="nom">
     </div>
+    <div>
+      <label for="prenom">Prénom</label>
+      <input type="text" id="prenom" name="prenom">
+    </div>
+    <div>
+      <label for="age">Âge</label>
+      <input type="number" id="age" name="age">
+    </div>
+    <div>
+      <button>
+        Envoyer
+      </button>
+    </div>
+  </form>
+  <h2>Liste des personnes</h2>
+  <ul>
+    <% personnes.forEach(p => { %>
+    <% let link=`/personne/${p.id}` %>
+    <li>
+      <%= `${p.prenom} ${p.nom}` %>
+      <a href="<%= link %>">supprimer</a>
+    </li>
+    <%})%>
+  </ul>
 </body>
+
 </html>

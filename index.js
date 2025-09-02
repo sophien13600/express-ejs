@@ -1,36 +1,39 @@
 import express from 'express'
 import 'dotenv/config'
+
+
+import session from 'express-session'
 import personne from './routes/personne.route.js'
 import adresse from './routes/adresse.route.js'
-import session from 'express-session'
 
+// configurer yup
 
 const app = express()
 
-//configurer la session
+// configurer la session
 app.use(session({
     secret: 'express-ejs',
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: false
+
 }))
 
-
-// utiliser le middlewarer body-parser
+// utiliser le middleware body-parser
 app.use(express.urlencoded())
 
-
+// configurer les ressources statiques
+app.use(express.static('public'))
 
 
 // Mapping entre routes et le routeur
-app.use("/personne",personne)//app.use est un dispatcher
+app.use("/personne", personne)
 app.use("/adresse", adresse)
 
-// configuration du moteur de template
+// Configuration du moteur de template
 app.set('view engine', 'ejs')
 app.set('views', import.meta.dirname + '/templates')
-app.set('views', import.meta.dirname + '/templates')
-//app.set('view options', { delimiter: '?' })
-
+// modifier le delimiter
+// app.set('view options', { delimiter: '?' })
 app.get(['/', '/home', '/accueil'], (req, res) => {
     // res.end("Hello world!")
     res.render('index',
@@ -39,10 +42,11 @@ app.get(['/', '/home', '/accueil'], (req, res) => {
             firstname: req.session.firstname,
             nomImportant: '<strong>Mitroglou</strong>',
             isConnected: false,
-            nombres : [2, 3, 8, 5, 1]
+            nombres: [2, 3, 8, 5, 1]
         })
-        
 })
+
+
 
 
 app.all("/*splat", (req, res) => {
