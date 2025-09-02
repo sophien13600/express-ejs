@@ -4,8 +4,7 @@ import PersonneController from '../controllers/personne.controller.js'
 const router = express.Router()
 
 router.get('/', PersonneController.showPersonnes)
-router.post('/', (req, res) => {
-
-})
-
+//router.get('/', PersonneController.personnes)
+router.post('/',PersonneController.addPersonne )
+router.get('/:id',PersonneController.deletePersonne)
 export default router

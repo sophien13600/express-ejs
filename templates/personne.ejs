@@ -7,20 +7,42 @@
 </head>
 <body>
     <h1>Formulaire</h1>
-    <form action="">
-        <label for="name">Nom</label>
-        <input type="text" id ="name" name="name">
-        <label for="surname">Prenom</label>
-        <input type="text" id ="surname" name="surname">
-        <label for="age">Age</label>
-        <input type="number" id ="age" name="age">
-        <button>Ajouter</button>
+    <form action="/personne" method="post">
+        <div>
+            <label for="name">Nom</label>
+            <input type="text" id ="name" name="name">
+        </div>
+        <div>
+            <label for="surname">Prenom</label>
+            <input type="text" id ="surname" name="surname">
+        </div>
+        <div>
+            <label for="age">Age</label>
+            <input type="number" id ="age" name="age">
+        </div>
+        <div>
+            <button>Ajouter</button>
+        </div>
+        <div>
+            <button>
+                Supprimer
+            </button>
+        </div>
 
     </form>
+    <h2>Liste des personnes</h2>
     <div>
-        <% if (locals.name) { %>
-            <p>hello <%= name %></p>
-        <% } %>
+    <ul>
+        <% personnes.forEach(p =>{%>
+         <% let link=`/personne/${p.id}` %>
+            <li>
+        <form action="/personne" action="delete"></form>
+            <%=`${p.surname} ${p.name}` %> 
+         <a href="<%= link %>">supprimer</a>
+        </li>
+        </form>
+        <%})%>
+    </ul> 
     </div>
 </body>
 </html>
