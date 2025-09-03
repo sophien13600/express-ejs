@@ -1,4 +1,4 @@
-import connection from '../config/db.js'
+import connection from '../config/db.config.js'
 
 
 //export const findAll = async () =>{

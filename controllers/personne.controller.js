@@ -1,9 +1,7 @@
-import * as yup from 'yup'
-import { fr } from 'yup-locales'
-// import connection from '../config/db.js'
+import  yup from '../config/yup.config.js'
 import personneRepository from '../repositories/personne.repository.js'
 
-yup.setLocale(fr)
+
 
 
 
@@ -51,6 +49,7 @@ const add = (req, res, next) => {
             req.session.firstname = req.body.prenom
             const p = await personneRepository.save(req.body)
             if (p == null) {
+                const personnes = await personneRepository.findAll()
                 res.render('personne', {
                     erreurs: ["Problème d'insertion"],
                     personnes: personneRepository.findAll()
@@ -60,11 +59,12 @@ const add = (req, res, next) => {
                 res.redirect('/personne')
             }
         })
-        .catch(err => {
+        .catch(async err => {
             console.log(err);
+            const personnes = await personneRepository.findAll()
             res.render('personne', {
                 erreurs: err.errors,
-                personnes: [] // à refaire après l'ajout de PersonneRepository
+                personnes
             })
         })
 }
